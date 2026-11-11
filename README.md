@@ -2,7 +2,7 @@
 
 ## Publicar (una vez)
 1. En GitHub crea un repositorio público llamado `cv` en la cuenta `gregmaya`.
-2. Sube `index.html`, `Gregorio-Maya-CV.pdf` y `og.png` a la raíz.
+2. Sube `index.html`, `Gregorio-Maya-CV.pdf` y `og-cv.png` a la raíz.
 3. Settings → Pages → Source: "Deploy from a branch", rama `main`, carpeta `/ (root)`.
 4. En uno o dos minutos queda en https://gregmaya.github.io/cv/
 
@@ -28,5 +28,5 @@ https://gregmaya.github.io/cv/#toggle-goatcounter (o usa "Settings → Ignore IP
 ## Actualizar el CV
 - Cambias el texto en `index.html` y/o reemplazas `Gregorio-Maya-CV.pdf` por la nueva versión
   con el mismo nombre. Recuerda actualizar ambos.
-- WhatsApp guarda en caché la tarjeta de vista previa. Si cambias `og.png`, súbelo con otro nombre
-  (p. ej. `og-2.png`) y actualiza la etiqueta `og:image`.
+- WhatsApp guarda en caché la tarjeta de vista previa. Si cambias `og-cv.png`, súbelo con otro nombre
+  (p. ej. `og-cv-2.png`) y actualiza la etiqueta `og:image`.
