@@ -29,13 +29,14 @@
     --accent:#1f5f8b;
   }
   *{box-sizing:border-box}
-  html{-webkit-text-size-adjust:100%}
+  html{-webkit-text-size-adjust:100%;font-size:19px}
+  @media (min-width:760px){html{font-size:18px}}
   body{margin:0;background:var(--bg);color:var(--ink);
-    font:18px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif}
+    font:1rem/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif}
   a{color:inherit}
   .wrap{max-width:760px;margin:0 auto;padding:28px 20px 64px}
 
-  header h1{font-size:2.4rem;line-height:1.1;letter-spacing:.01em;margin:0 0 6px;font-weight:800;text-transform:uppercase}
+  header h1{font-size:2rem;line-height:1.1;letter-spacing:.01em;margin:0 0 6px;font-weight:800;text-transform:uppercase}
   header .role{color:var(--muted);margin:0 0 18px;font-size:1.12rem}
 
   .actions{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 8px}
@@ -45,7 +46,7 @@
   .btn svg{width:16px;height:16px}
   .loc{color:var(--muted);font-size:.95rem;margin:6px 0 0}
 
-  .summary{margin:0;font-size:1.06rem}
+  .summary{margin:0;font-size:1rem}
 
   section{margin-top:40px}
   h2{font-size:.85rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
@@ -99,6 +100,8 @@
   section{scroll-margin-top:calc(var(--bar-h) + 8px)}
   section > h2{position:sticky;top:var(--bar-h);z-index:5;background:var(--bg);padding-top:10px;margin-top:-10px}
   @media (max-width:759px){.bar-pdf{display:none}}
+  main > section:last-of-type{min-height:calc(100vh - var(--bar-h) - 40px)}
+  @media (max-width:759px){main > section:last-of-type{min-height:calc(100vh - var(--bar-h) - 120px)}}
 
   /* Barra de contacto fija en móvil */
   .dock{position:fixed;left:0;right:0;bottom:0;display:flex;gap:8px;justify-content:center;
@@ -115,6 +118,7 @@
     .wrap{max-width:none;padding:0}
     .actions,.dock,footer,.bar{display:none!important}
     section > h2{position:static;padding-top:0;margin-top:0}
+    main > section:last-of-type{min-height:0!important}
     header h1{font-size:22pt;text-align:center}
     header .role,.loc{text-align:center}
     .print-contact{display:block!important;text-align:center;font-size:9pt;margin-bottom:6px}
@@ -157,6 +161,7 @@
   <p class="loc">Bogotá, Colombia · Doble nacionalidad: colombiana y UE</p>
 </header>
 
+<main>
 <section id="perfil">
   <h2>Perfil</h2>
 <p class="summary">Consultor urbano y asesor en movilidad sostenible con más de 10 años de experiencia internacional en Londres, Madrid y Oslo. Magíster en Ciencias (MSc) con distinción de University College London (UCL). Entre la academia y la práctica, su trabajo se centra en la movilidad activa y sus efectos socioeconómicos, con un enfoque de equidad y justicia urbana. Profesor visitante en OsloMet (Noruega) y jurado invitado en las revisiones del máster del Norman Foster Institute. Su trabajo con Harvard Business School, Transport for London, Bloomberg Philanthropies y alcaldías europeas lo ha especializado en traducir análisis técnicos para alcaldes y alta dirección. Aunque domina todo el ciclo de los datos, de la adquisición al <em>dashboard</em>, prioriza el foco en el ciudadano de a pie y en soluciones multidisciplinares para la calidad de vida a distintas escalas.</p>
@@ -270,6 +275,7 @@
   </ul>
 </section>
 
+</main>
 <footer>
   Esta página registra visitas de forma anónima y sin cookies (país, dispositivo, hora).
 </footer>
@@ -302,10 +308,15 @@
       if(compact!==bar.classList.contains('compact')){bar.classList.toggle('compact',compact);setTimeout(setH,260)}
       var line=bar.offsetHeight+60, cur=secs[0].id;
       secs.forEach(function(s){ if(s.getBoundingClientRect().top<=line) cur=s.id; });
-      if(window.innerHeight+y>=document.documentElement.scrollHeight-4) cur=secs[secs.length-1].id;
       active(cur);
     }
-    window.addEventListener('scroll',onScroll,{passive:true});
+    var lock=0;
+    chips.forEach(function(a){a.addEventListener('click',function(){
+      active(a.getAttribute('href').slice(1)); lock=Date.now()+900;
+    })});
+    window.addEventListener('scroll',function(){ if(Date.now()>lock) onScroll(); else {
+      var c=window.scrollY>hero.offsetTop+hero.offsetHeight-40;
+      if(c!==bar.classList.contains('compact')){bar.classList.toggle('compact',c);setTimeout(setH,260)} } },{passive:true});
     window.addEventListener('resize',function(){setH();onScroll()});
     setH(); onScroll();
   })();
