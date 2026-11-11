@@ -45,7 +45,7 @@
   .btn svg{width:16px;height:16px}
   .loc{color:var(--muted);font-size:.95rem;margin:6px 0 0}
 
-  .summary{margin:28px 0 0;font-size:1.06rem}
+  .summary{margin:0;font-size:1.06rem}
 
   section{margin-top:40px}
   h2{font-size:.85rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
@@ -79,6 +79,27 @@
 
   footer{margin-top:48px;color:var(--muted);font-size:.85rem;text-align:center}
 
+  /* Cabecera fija con capítulos */
+  html{scroll-behavior:smooth}
+  :root{--bar-h:52px}
+  .bar{position:sticky;top:0;z-index:20;background:#fff;
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .bar-in{max-width:760px;margin:0 auto;padding:0 20px}
+  .bar-top{display:flex;justify-content:space-between;align-items:center;
+    height:0;opacity:0;overflow:hidden;transition:height .25s ease,opacity .2s ease}
+  .bar.compact .bar-top{height:40px;opacity:1}
+  .bar-name{font-weight:800;text-transform:uppercase;letter-spacing:.02em;text-decoration:none;font-size:.95rem}
+  .bar-pdf{font-size:.85rem;font-weight:600;text-decoration:none;padding:4px 10px;border:1px solid var(--line);border-radius:999px}
+  .chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:9px 0;margin:0 -20px;padding-left:20px;padding-right:20px;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 16px,#000 calc(100% - 24px),transparent)}
+  .chips::-webkit-scrollbar{display:none}
+  .chips a{flex:none;text-decoration:none;font-size:.88rem;font-weight:600;color:var(--muted);
+    padding:6px 12px;border-radius:999px;transition:background .2s,color .2s}
+  .chips a.on{background:var(--ink);color:#fff}
+  section{scroll-margin-top:calc(var(--bar-h) + 8px)}
+  section > h2{position:sticky;top:var(--bar-h);z-index:5;background:var(--bg);padding-top:10px;margin-top:-10px}
+  @media (max-width:759px){.bar-pdf{display:none}}
+
   /* Barra de contacto fija en móvil */
   .dock{position:fixed;left:0;right:0;bottom:0;display:flex;gap:8px;justify-content:center;
     padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.94);
@@ -92,7 +113,8 @@
     @page{size:A4;margin:14mm 14mm}
     body{font-size:10pt;line-height:1.4}
     .wrap{max-width:none;padding:0}
-    .actions,.dock,footer{display:none!important}
+    .actions,.dock,footer,.bar{display:none!important}
+    section > h2{position:static;padding-top:0;margin-top:0}
     header h1{font-size:22pt;text-align:center}
     header .role,.loc{text-align:center}
     .print-contact{display:block!important;text-align:center;font-size:9pt;margin-bottom:6px}
@@ -107,7 +129,16 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="bar" id="bar">
+  <div class="bar-in">
+    <div class="bar-top"><a href="#top" class="bar-name">Gregorio Maya</a>
+      <a class="bar-pdf" href="Gregorio-Maya-CV.pdf" download="Gregorio-Maya-CV.pdf" data-track="pdf">PDF ↓</a></div>
+    <nav class="chips" id="chips">
+      <a href="#perfil">Perfil</a><a href="#competencias">Competencias</a><a href="#experiencia">Experiencia</a><a href="#formacion">Formación</a><a href="#idiomas">Idiomas</a><a href="#certificaciones">Certificaciones</a>
+    </nav>
+  </div>
+</div>
+<div class="wrap" id="top">
 
 <header>
   <h1>Gregorio Maya</h1>
@@ -126,9 +157,12 @@
   <p class="loc">Bogotá, Colombia · Doble nacionalidad: colombiana y UE</p>
 </header>
 
+<section id="perfil">
+  <h2>Perfil</h2>
 <p class="summary">Consultor urbano y asesor en movilidad sostenible con más de 10 años de experiencia internacional en Londres, Madrid y Oslo. Magíster en Ciencias (MSc) con distinción de University College London (UCL). Entre la academia y la práctica, su trabajo se centra en la movilidad activa y sus efectos socioeconómicos, con un enfoque de equidad y justicia urbana. Profesor visitante en OsloMet (Noruega) y jurado invitado en las revisiones del máster del Norman Foster Institute. Su trabajo con Harvard Business School, Transport for London, Bloomberg Philanthropies y alcaldías europeas lo ha especializado en traducir análisis técnicos para alcaldes y alta dirección. Aunque domina todo el ciclo de los datos, de la adquisición al <em>dashboard</em>, prioriza el foco en el ciudadano de a pie y en soluciones multidisciplinares para la calidad de vida a distintas escalas.</p>
+</section>
 
-<section>
+<section id="competencias">
   <h2>Competencias clave</h2>
   <ul class="skills">
     <li><b>Movilidad activa y equidad urbana</b><span>Accesibilidad, salud y movilidad, segregación socioeconómica, Desarrollo Orientado al Transporte (DOT).</span></li>
@@ -140,7 +174,7 @@
   </ul>
 </section>
 
-<section>
+<section id="experiencia">
   <h2>Experiencia profesional</h2>
 
   <div class="job">
@@ -211,7 +245,7 @@
   </div>
 </section>
 
-<section>
+<section id="formacion">
   <h2>Formación académica</h2>
   <div class="edu">
     <div><b>University College London, The Bartlett School of Architecture</b>MSc Spatial Design: Architecture and Cities (Distinción)<div class="meta">Londres, Reino Unido · 2015–2016</div></div>
@@ -220,7 +254,7 @@
   </div>
 </section>
 
-<section>
+<section id="idiomas">
   <h2>Idiomas y nacionalidad</h2>
   <ul class="plain">
     <li>Español (nativo), Inglés (C2), Francés (C1), Portugués (intermedio).</li>
@@ -228,7 +262,7 @@
   </ul>
 </section>
 
-<section>
+<section id="certificaciones">
   <h2>Certificaciones y distinciones</h2>
   <ul class="plain">
     <li>Beca R. Salmona, British Council (2022); Tableau Certified Data Analyst, Salesforce (2022).</li>
@@ -245,6 +279,37 @@
   <a class="btn primary" href="Gregorio-Maya-CV.pdf" download="Gregorio-Maya-CV.pdf" data-track="pdf">Descargar PDF</a>
   <a class="btn" href="https://wa.me/34613008183" data-track="whatsapp">WhatsApp</a>
 </nav>
+
+<script>
+  (function(){
+    var bar=document.getElementById('bar'), chips=[].slice.call(document.querySelectorAll('#chips a'));
+    var secs=chips.map(function(a){return document.querySelector(a.getAttribute('href'))});
+    var hero=document.querySelector('header');
+    function setH(){document.documentElement.style.setProperty('--bar-h', bar.offsetHeight+'px')}
+    function active(id){
+      chips.forEach(function(a){
+        var on=a.getAttribute('href')==='#'+id;
+        if(on && !a.classList.contains('on')){
+          var nav=a.parentNode, x=a.offsetLeft-(nav.clientWidth-a.offsetWidth)/2;
+          nav.scrollTo({left:x,behavior:'smooth'});
+        }
+        a.classList.toggle('on',on);
+      });
+    }
+    function onScroll(){
+      var y=window.scrollY;
+      var compact = y > hero.offsetTop + hero.offsetHeight - 40;
+      if(compact!==bar.classList.contains('compact')){bar.classList.toggle('compact',compact);setTimeout(setH,260)}
+      var line=bar.offsetHeight+60, cur=secs[0].id;
+      secs.forEach(function(s){ if(s.getBoundingClientRect().top<=line) cur=s.id; });
+      if(window.innerHeight+y>=document.documentElement.scrollHeight-4) cur=secs[secs.length-1].id;
+      active(cur);
+    }
+    window.addEventListener('scroll',onScroll,{passive:true});
+    window.addEventListener('resize',function(){setH();onScroll()});
+    setH(); onScroll();
+  })();
+</script>
 
 <!-- Analítica: GoatCounter, sin cookies -->
 <script>
