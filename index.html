@@ -29,7 +29,7 @@
     --accent:#1f5f8b;
   }
   *{box-sizing:border-box}
-  html{-webkit-text-size-adjust:100%;font-size:19px}
+  html{-webkit-text-size-adjust:100%;font-size:19px;overflow-x:clip}
   @media (min-width:760px){html{font-size:18px}}
   body{margin:0;background:var(--bg);color:var(--ink);
     font:1rem/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif}
@@ -68,7 +68,8 @@
   .job .meta{color:var(--muted);font-size:.92rem}
   .job .title{font-style:italic;margin:2px 0 8px;color:#333}
   .job ul{margin:0;padding-left:18px}
-  .job li{margin:8px 0;color:var(--sec);font-size:.9rem;line-height:1.55}
+  .job li{margin:8px 0;color:var(--sec);font-size:.84rem;line-height:1.55}
+  .job li::marker,.plain li::marker{font-size:.8em;color:#9a9a9a}
   .job li b,.others li b,.edu b{color:var(--ink)}
   .job li b{font-weight:650}
 
@@ -84,18 +85,21 @@
 
   .plain{margin:0;padding-left:18px}
   .plain li{margin:6px 0;color:var(--sec);font-size:.9rem}
+  .plain li b{color:var(--ink);font-weight:600}
+  .plain.cols{display:grid;grid-template-columns:1fr 1fr;column-gap:24px;row-gap:6px}
+  .plain.cols b{display:block}
 
   footer{margin-top:48px;color:var(--muted);font-size:.85rem;text-align:center}
 
   /* Cabecera fija con capítulos */
   html{scroll-behavior:smooth}
   :root{--bar-h:52px}
-  .bar{position:sticky;top:0;z-index:20;background:#fff;
+  .bar{position:sticky;top:0;z-index:20;background:#fff;margin:0 calc(50% - 50vw);
     backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
   .bar-in{max-width:760px;margin:0 auto;padding:0 20px}
   .bar-top{display:flex;justify-content:space-between;align-items:center;
-    height:0;opacity:0;overflow:hidden;transition:height .25s ease,opacity .2s ease}
-  .bar.compact .bar-top{height:40px;opacity:1}
+    height:40px;opacity:0;visibility:hidden;transition:opacity .2s ease,visibility .2s}
+  .bar.compact .bar-top{opacity:1;visibility:visible}
   .bar-name{font-weight:800;text-transform:uppercase;letter-spacing:.02em;text-decoration:none;font-size:.95rem}
   .bar-pdf{font-size:.85rem;font-weight:600;text-decoration:none;padding:4px 10px;border:1px solid var(--line);border-radius:999px}
   .chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:9px 0;margin:0 -20px;padding-left:20px;padding-right:20px;
@@ -104,9 +108,9 @@
   .chips a{flex:none;text-decoration:none;font-size:.88rem;font-weight:600;color:var(--muted);
     padding:6px 12px;border-radius:999px;transition:background .2s,color .2s}
   .chips a.on{background:var(--ink);color:#fff}
-  section{scroll-margin-top:calc(var(--bar-h) + 8px)}
+  section{scroll-margin-top:calc(var(--bar-hc,var(--bar-h)) + 8px)}
   section > h2{position:sticky;top:var(--bar-h);z-index:5;background:var(--bg);padding-top:10px;margin-top:-10px}
-  .tail{min-height:calc(100vh - var(--bar-h) - 24px)}
+  .tail{min-height:calc(100vh - var(--bar-hc,var(--bar-h)) - 8px)}
 
 
   /* Impresión / Guardar como PDF */
@@ -131,15 +135,6 @@
 </style>
 </head>
 <body>
-<div class="bar" id="bar">
-  <div class="bar-in">
-    <div class="bar-top"><a href="#top" class="bar-name">Gregorio Maya</a>
-      <a class="bar-pdf" href="Gregorio-Maya-CV.pdf" download="Gregorio-Maya-CV.pdf" data-track="pdf">PDF ↓</a></div>
-    <nav class="chips" id="chips">
-      <a href="#perfil">Perfil</a><a href="#competencias">Competencias</a><a href="#experiencia">Experiencia</a><a href="#formacion">Formación</a><a href="#idiomas">Idiomas y certificaciones</a>
-    </nav>
-  </div>
-</div>
 <div class="wrap" id="top">
 
 <header>
@@ -158,8 +153,17 @@
     </div>
   </div>
   <p class="print-contact">+34 613 008 183 · gregoriomaya@gmail.com · linkedin.com/in/gregoriomaya · github.com/gregmaya</p>
-  <p class="loc">Bogotá, Colombia</p>
 </header>
+
+<div class="bar" id="bar">
+  <div class="bar-in">
+    <div class="bar-top"><a href="#top" class="bar-name">Gregorio Maya</a>
+      <a class="bar-pdf" href="Gregorio-Maya-CV.pdf" download="Gregorio-Maya-CV.pdf" data-track="pdf">PDF ↓</a></div>
+    <nav class="chips" id="chips">
+      <a href="#perfil">Perfil</a><a href="#competencias">Competencias</a><a href="#experiencia">Experiencia</a><a href="#formacion">Formación</a><a href="#idiomas">Idiomas y certificaciones</a>
+    </nav>
+  </div>
+</div>
 
 <main>
 <section id="perfil">
@@ -262,16 +266,22 @@
 <div class="tail">
 <section id="idiomas">
   <h2>Idiomas</h2>
-  <ul class="plain">
-    <li>Español (nativo), Inglés (C2), Francés (C1), Portugués (intermedio).</li>
+  <ul class="plain cols">
+    <li><b>Español</b>nativo</li>
+    <li><b>Inglés</b>C2</li>
+    <li><b>Francés</b>C1</li>
+    <li><b>Portugués</b>intermedio</li>
   </ul>
 </section>
 
 <section id="certificaciones">
   <h2>Certificaciones y distinciones</h2>
   <ul class="plain">
-    <li>Beca R. Salmona, British Council (2022); Tableau Certified Data Analyst, Salesforce (2022).</li>
-    <li>Salud Urbana, Unite for Sight (2025); Product Management, NOVA (2023); Data Science, General Assembly (2019).</li>
+    <li><b>Beca R. Salmona</b> · British Council (2022)</li>
+    <li><b>Tableau Certified Data Analyst</b> · Salesforce (2022)</li>
+    <li><b>Salud Urbana</b> · Unite for Sight (2025)</li>
+    <li><b>Product Management</b> · NOVA (2023)</li>
+    <li><b>Data Science</b> · General Assembly (2019)</li>
   </ul>
 </section>
 
@@ -288,7 +298,7 @@
     var bar=document.getElementById('bar'), chips=[].slice.call(document.querySelectorAll('#chips a'));
     var secs=chips.map(function(a){return document.querySelector(a.getAttribute('href'))});
     var hero=document.querySelector('header');
-    function setH(){document.documentElement.style.setProperty('--bar-h', bar.offsetHeight+'px')}
+    function setH(){var d=document.documentElement.style;d.setProperty('--bar-h', bar.offsetHeight+'px');d.setProperty('--bar-hc',(document.getElementById('chips').offsetHeight+41)+'px')}
     function active(id){
       chips.forEach(function(a){
         var on=a.getAttribute('href')==='#'+id;
@@ -301,7 +311,7 @@
     }
     function onScroll(){
       var y=window.scrollY;
-      var compact = y > hero.offsetTop + hero.offsetHeight - 40;
+      var compact = bar.getBoundingClientRect().top <= 1;
       if(compact!==bar.classList.contains('compact')){bar.classList.toggle('compact',compact);setTimeout(setH,260)}
       var line=bar.offsetHeight+60, cur=secs[0].id;
       secs.forEach(function(s){ if(s.getBoundingClientRect().top<=line) cur=s.id; });
@@ -312,7 +322,7 @@
       active(a.getAttribute('href').slice(1)); lock=Date.now()+900;
     })});
     window.addEventListener('scroll',function(){ if(Date.now()>lock) onScroll(); else {
-      var c=window.scrollY>hero.offsetTop+hero.offsetHeight-40;
+      var c=bar.getBoundingClientRect().top<=1;
       if(c!==bar.classList.contains('compact')){bar.classList.toggle('compact',c);setTimeout(setH,260)} } },{passive:true});
     window.addEventListener('resize',function(){setH();onScroll()});
     setH(); onScroll();
