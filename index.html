@@ -58,7 +58,8 @@
 
   ul.skills{list-style:none;padding:0;margin:0;display:grid;gap:16px}
   ul.skills b{display:block}
-  ul.skills span{display:block;color:#4a4a4a;font-size:.9rem;line-height:1.55;margin-top:2px}
+  :root{--sec:#4a4a4a}
+  ul.skills span{display:block;color:var(--sec);font-size:.9rem;line-height:1.55;margin-top:2px}
 
   .job{padding:18px 0;border-bottom:1px solid var(--line)}
   .job:last-child{border-bottom:0}
@@ -67,20 +68,22 @@
   .job .meta{color:var(--muted);font-size:.92rem}
   .job .title{font-style:italic;margin:2px 0 8px;color:#333}
   .job ul{margin:0;padding-left:18px}
-  .job li{margin:6px 0}
+  .job li{margin:8px 0;color:var(--sec);font-size:.9rem;line-height:1.55}
+  .job li b,.others li b,.edu b{color:var(--ink)}
   .job li b{font-weight:650}
 
   .others{margin-top:14px;background:var(--soft);border-radius:12px;padding:14px 16px}
   .others h4{margin:0 0 8px;font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
-  .others ul{list-style:none;padding:0;margin:0;display:grid;gap:10px;font-size:1rem}
+  .others ul{list-style:none;padding:0;margin:0;display:grid;gap:10px;font-size:.88rem;color:var(--sec);line-height:1.5}
   @media (min-width:640px){.others ul{grid-template-columns:1fr 1fr;column-gap:20px}}
 
   .edu{display:grid;gap:14px}
   .edu div b{display:block}
+  .edu .deg{display:block;color:var(--sec);font-size:.9rem}
   .edu .meta{color:var(--muted);font-size:.92rem}
 
   .plain{margin:0;padding-left:18px}
-  .plain li{margin:6px 0}
+  .plain li{margin:6px 0;color:var(--sec);font-size:.9rem}
 
   footer{margin-top:48px;color:var(--muted);font-size:.85rem;text-align:center}
 
@@ -250,9 +253,9 @@
 <section id="formacion">
   <h2>Formación académica</h2>
   <div class="edu">
-    <div><b>University College London, The Bartlett School of Architecture</b>MSc Spatial Design: Architecture and Cities (Distinción)<div class="meta">Londres, Reino Unido · 2015–2016</div></div>
-    <div><b>Universidad de los Andes</b>Arquitectura y Urbanismo (Summa Cum Laude)<div class="meta">Bogotá, Colombia · 2008–2013</div></div>
-    <div><b>Colegio Helvetia de Bogotá</b>Bachillerato Suizo (Matura)<div class="meta">Bogotá, Colombia · 2007</div></div>
+    <div><b>University College London, The Bartlett School of Architecture</b><span class="deg">MSc Spatial Design: Architecture and Cities (Distinción)</span><div class="meta">Londres, Reino Unido · 2015–2016</div></div>
+    <div><b>Universidad de los Andes</b><span class="deg">Arquitectura y Urbanismo (Summa Cum Laude)</span><div class="meta">Bogotá, Colombia · 2008–2013</div></div>
+    <div><b>Colegio Helvetia de Bogotá</b><span class="deg">Bachillerato Suizo (Matura)</span><div class="meta">Bogotá, Colombia · 2007</div></div>
   </div>
 </section>
 
