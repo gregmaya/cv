@@ -46,6 +46,7 @@
   .btn svg{width:16px;height:16px}
   .loc{color:var(--muted);font-size:.95rem;margin:6px 0 0}
 
+  .summary strong{font-weight:650}
   .summary{margin:0;font-size:1rem}
 
   section{margin-top:40px}
@@ -99,26 +100,17 @@
   .chips a.on{background:var(--ink);color:#fff}
   section{scroll-margin-top:calc(var(--bar-h) + 8px)}
   section > h2{position:sticky;top:var(--bar-h);z-index:5;background:var(--bg);padding-top:10px;margin-top:-10px}
-  @media (max-width:759px){.bar-pdf{display:none}}
-  main > section:last-of-type{min-height:calc(100vh - var(--bar-h) - 40px)}
-  @media (max-width:759px){main > section:last-of-type{min-height:calc(100vh - var(--bar-h) - 120px)}}
+  .tail{min-height:calc(100vh - var(--bar-h) - 24px)}
 
-  /* Barra de contacto fija en móvil */
-  .dock{position:fixed;left:0;right:0;bottom:0;display:flex;gap:8px;justify-content:center;
-    padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.94);
-    backdrop-filter:blur(8px);border-top:1px solid var(--line)}
-  .dock .btn{flex:1;justify-content:center;max-width:180px}
-  @media (min-width:760px){.dock{display:none}}
-  @media (max-width:759px){.wrap{padding-bottom:110px}}
 
   /* Impresión / Guardar como PDF */
   @media print{
     @page{size:A4;margin:14mm 14mm}
     body{font-size:10pt;line-height:1.4}
     .wrap{max-width:none;padding:0}
-    .actions,.dock,footer,.bar{display:none!important}
+    .actions,footer,.bar{display:none!important}
     section > h2{position:static;padding-top:0;margin-top:0}
-    main > section:last-of-type{min-height:0!important}
+    .tail{min-height:0!important}
     header h1{font-size:22pt;text-align:center}
     header .role,.loc{text-align:center}
     .print-contact{display:block!important;text-align:center;font-size:9pt;margin-bottom:6px}
@@ -138,7 +130,7 @@
     <div class="bar-top"><a href="#top" class="bar-name">Gregorio Maya</a>
       <a class="bar-pdf" href="Gregorio-Maya-CV.pdf" download="Gregorio-Maya-CV.pdf" data-track="pdf">PDF ↓</a></div>
     <nav class="chips" id="chips">
-      <a href="#perfil">Perfil</a><a href="#competencias">Competencias</a><a href="#experiencia">Experiencia</a><a href="#formacion">Formación</a><a href="#idiomas">Idiomas</a><a href="#certificaciones">Certificaciones</a>
+      <a href="#perfil">Perfil</a><a href="#competencias">Competencias</a><a href="#experiencia">Experiencia</a><a href="#formacion">Formación</a><a href="#idiomas">Idiomas y certificaciones</a>
     </nav>
   </div>
 </div>
@@ -158,13 +150,13 @@
     <a class="btn" data-track="github" href="https://github.com/gregmaya" target="_blank" rel="noopener">GitHub</a>
   </div>
   <p class="print-contact">+34 613 008 183 · gregoriomaya@gmail.com · linkedin.com/in/gregoriomaya · github.com/gregmaya</p>
-  <p class="loc">Bogotá, Colombia · Doble nacionalidad: colombiana y UE</p>
+  <p class="loc">Bogotá, Colombia</p>
 </header>
 
 <main>
 <section id="perfil">
   <h2>Perfil</h2>
-<p class="summary">Consultor urbano y asesor en movilidad sostenible con más de 10 años de experiencia internacional en Londres, Madrid y Oslo. Magíster en Ciencias (MSc) con distinción de University College London (UCL). Entre la academia y la práctica, su trabajo se centra en la movilidad activa y sus efectos socioeconómicos, con un enfoque de equidad y justicia urbana. Profesor visitante en OsloMet (Noruega) y jurado invitado en las revisiones del máster del Norman Foster Institute. Su trabajo con Harvard Business School, Transport for London, Bloomberg Philanthropies y alcaldías europeas lo ha especializado en traducir análisis técnicos para alcaldes y alta dirección. Aunque domina todo el ciclo de los datos, de la adquisición al <em>dashboard</em>, prioriza el foco en el ciudadano de a pie y en soluciones multidisciplinares para la calidad de vida a distintas escalas.</p>
+<p class="summary">Consultor urbano y asesor en movilidad sostenible con <strong>más de 10 años de experiencia internacional</strong> en Londres, Madrid y Oslo. <strong>Magíster en Ciencias (MSc) con distinción</strong> de University College London (UCL). Entre la academia y la práctica, su trabajo se centra en <strong>la movilidad activa y sus efectos socioeconómicos</strong>, con un enfoque de equidad y justicia urbana. Profesor visitante en OsloMet (Noruega) y jurado invitado en las revisiones del máster del Norman Foster Institute. Su trabajo con Harvard Business School, Transport for London, Bloomberg Philanthropies y alcaldías europeas lo ha especializado en <strong>traducir análisis técnicos para alcaldes y alta dirección</strong>. Aunque domina todo el ciclo de los datos, de la adquisición al <em>dashboard</em>, prioriza el foco en el ciudadano de a pie y en soluciones multidisciplinares para la calidad de vida a distintas escalas.</p>
 </section>
 
 <section id="competencias">
@@ -259,11 +251,11 @@
   </div>
 </section>
 
+<div class="tail">
 <section id="idiomas">
-  <h2>Idiomas y nacionalidad</h2>
+  <h2>Idiomas</h2>
   <ul class="plain">
     <li>Español (nativo), Inglés (C2), Francés (C1), Portugués (intermedio).</li>
-    <li>Doble nacionalidad: colombiana y UE.</li>
   </ul>
 </section>
 
@@ -275,16 +267,13 @@
   </ul>
 </section>
 
+</div>
 </main>
 <footer>
   Esta página registra visitas de forma anónima y sin cookies (país, dispositivo, hora).
 </footer>
 </div>
 
-<nav class="dock">
-  <a class="btn primary" href="Gregorio-Maya-CV.pdf" download="Gregorio-Maya-CV.pdf" data-track="pdf">Descargar PDF</a>
-  <a class="btn" href="https://wa.me/34613008183" data-track="whatsapp">WhatsApp</a>
-</nav>
 
 <script>
   (function(){
