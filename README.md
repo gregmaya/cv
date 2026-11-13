@@ -22,6 +22,13 @@ Rutas que registra la página:
 | `cv/sin-codigo` | visita sin código (LinkedIn, URL escrita a mano…) |
 | `pdf/r/k7` | descarga del PDF con ese código |
 | `whatsapp/r/k7`, `email/r/k7`, `linkedin/r/k7`, `github/r/k7` | clic en ese botón de contacto |
+| `share/r/k7.m3` | alguien con el código `k7` tocó "Compartir" y se generó el código hijo `k7.m3` |
+| `cv/r/k7.m3` | alguien abrió un enlace compartido desde la página (nivel 2 del árbol) |
+| `share/r/o.p8` | alguien sin código compartió; `o` = orgánico |
+
+Los puntos marcan la cadena: `k7.m3.p8` es alguien que recibió el enlace de quien recibió el de `k7`.
+Los reenvíos del mensaje original de WhatsApp conservan el código padre; esos se estiman en el análisis
+por cambios de dispositivo, país o día dentro del mismo código.
 
 Las rutas de visita se guardan con barra inicial (`/cv/r/k7`) y los clics sin ella (`pdf/r/k7`).
 

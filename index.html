@@ -100,8 +100,19 @@
   .bar-top{display:flex;justify-content:space-between;align-items:center;
     height:40px;opacity:0;visibility:hidden;transition:opacity .2s ease,visibility .2s}
   .bar.compact .bar-top{opacity:1;visibility:visible}
-  .bar-name{font-weight:800;text-transform:uppercase;letter-spacing:.02em;text-decoration:none;font-size:.95rem}
-  .bar-pdf{font-size:.85rem;font-weight:600;text-decoration:none;padding:4px 10px;border:1px solid var(--line);border-radius:999px}
+  .bar-name{font-weight:800;text-transform:uppercase;letter-spacing:.02em;text-decoration:none;font-size:.9rem;white-space:nowrap}
+  .bar-act{display:flex;gap:6px}
+  .bar-pdf{display:inline-flex;align-items:center;gap:5px;font:inherit;font-size:.85rem;font-weight:600;color:var(--ink);background:#fff;
+    text-decoration:none;padding:4px 10px;border:1px solid var(--line);border-radius:999px;cursor:pointer;white-space:nowrap}
+  @media (max-width:420px){.bar-pdf .lbl{display:none}.bar-pdf{padding:5px 9px}}
+  .bar-pdf svg{width:14px;height:14px}
+  .cta{margin-top:56px;padding:24px 20px;border:1px solid var(--line);border-radius:16px;text-align:center}
+  .cta p{margin:0 0 14px;font-weight:600}
+  .cta .btn{cursor:pointer;font:inherit;font-weight:600}
+  .cta .btn svg{width:16px;height:16px}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;
+    padding:10px 16px;border-radius:999px;font-size:.85rem;opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;z-index:50}
+  .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
   .chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:9px 0;margin:0 -20px;padding-left:20px;padding-right:20px;
     -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 16px,#000 calc(100% - 24px),transparent)}
   .chips::-webkit-scrollbar{display:none}
@@ -118,7 +129,7 @@
     @page{size:A4;margin:14mm 14mm}
     body{font-size:10pt;line-height:1.4}
     .wrap{max-width:none;padding:0}
-    .actions,footer,.bar{display:none!important}
+    .actions,footer,.bar,.cta,.toast{display:none!important}
     section > h2{position:static;padding-top:0;margin-top:0}
     .tail{min-height:0!important}
     header h1{font-size:22pt;text-align:center}
@@ -158,7 +169,8 @@
 <div class="bar" id="bar">
   <div class="bar-in">
     <div class="bar-top"><a href="#top" class="bar-name">Gregorio Maya</a>
-      <a class="bar-pdf" href="Gregorio-Maya-CV.pdf" download="Gregorio-Maya-CV.pdf" data-track="pdf">PDF ↓</a></div>
+      <span class="bar-act"><button class="bar-pdf js-share" type="button" aria-label="Compartir"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M12 3v13M7 8l5-5 5 5"/></svg><span class="lbl">Compartir</span></button>
+      <a class="bar-pdf" href="Gregorio-Maya-CV.pdf" download="Gregorio-Maya-CV.pdf" data-track="pdf">PDF ↓</a></span></div>
     <nav class="chips" id="chips">
       <a href="#perfil">Perfil</a><a href="#competencias">Competencias</a><a href="#experiencia">Experiencia</a><a href="#formacion">Formación</a><a href="#idiomas">Idiomas y certificaciones</a>
     </nav>
@@ -287,9 +299,15 @@
 
 </div>
 </main>
+<div class="cta">
+  <p>¿Conoces a alguien a quien le pueda interesar?</p>
+  <button class="btn primary js-share" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M12 3v13M7 8l5-5 5 5"/></svg>Compartir este CV</button>
+</div>
 <footer>
   Esta página registra visitas de forma anónima y sin cookies (país, dispositivo, hora).
+  Los enlaces compartidos desde aquí llevan un código para saber cómo circula el CV.
 </footer>
+<div class="toast" id="toast">Enlace copiado</div>
 </div>
 
 
@@ -333,7 +351,7 @@
 <script>
   (function(){
     var GC = 'https://gregmaya.goatcounter.com/count'; // cambia "gregmaya" si registras otro código
-    var r = (new URLSearchParams(location.search).get('r') || '').toLowerCase().replace(/[^a-z0-9_-]/g,'').slice(0,20);
+    var r = (new URLSearchParams(location.search).get('r') || '').toLowerCase().replace(/[^a-z0-9_.-]/g,'').slice(0,40);
     var tag = r ? '/r/' + r : '/sin-codigo';
 
     window.goatcounter = {no_onload: true};
@@ -346,6 +364,37 @@
     s.setAttribute('data-goatcounter', GC);
     s.onload = function(){ hit('cv' + tag, 'Visita CV' + (r ? ' · ' + r : '')); };
     document.head.appendChild(s);
+
+    // Compartir: cada clic genera un código hijo (k7 → k7.m3) para seguir la cadena de reenvíos
+    var ABC = 'abcdefghjkmnpqrsuvwxyz23456789';
+    function hijo(){
+      var c = ''; for (var i = 0; i < 2; i++) c += ABC.charAt(Math.floor(Math.random() * ABC.length));
+      return (r || 'o') + '.' + c;   // "o" = visitante sin código (orgánico)
+    }
+    function toast(t){
+      var el = document.getElementById('toast'); el.textContent = t; el.classList.add('on');
+      setTimeout(function(){ el.classList.remove('on'); }, 1800);
+    }
+    function copiar(url){
+      function viejo(){
+        var i = document.createElement('textarea'); i.value = url; document.body.appendChild(i); i.select();
+        try { document.execCommand('copy'); } catch(e){} document.body.removeChild(i);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText)
+        return navigator.clipboard.writeText(url).catch(viejo);
+      viejo(); return Promise.resolve();
+    }
+    [].forEach.call(document.querySelectorAll('.js-share'), function(b){
+      b.addEventListener('click', function(){
+        var c = hijo(), url = 'https://gregmaya.github.io/cv/?r=' + c;
+        hit('share/r/' + c, 'Compartir · ' + (r || 'sin código') + ' → ' + c, true);
+        if (navigator.share) {
+          navigator.share({title: 'Gregorio Maya · Hoja de vida', url: url}).catch(function(){});
+        } else {
+          copiar(url).then(function(){ toast('Enlace copiado'); });
+        }
+      });
+    });
 
     // Clics: descarga del PDF y contactos, ligados al código
     document.addEventListener('click', function(e){
