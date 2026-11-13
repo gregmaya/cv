@@ -25,6 +25,7 @@ Rutas que registra la página:
 | `share/r/k7.m3` | alguien con el código `k7` tocó "Compartir" y se generó el código hijo `k7.m3` |
 | `cv/r/k7.m3` | alguien abrió un enlace compartido desde la página (nivel 2 del árbol) |
 | `share/r/o.p8` | alguien sin código compartió; `o` = orgánico |
+| `d/k7/android-chrome-390-es-bogota` | huella de una apertura: sistema, navegador, ancho de pantalla, idioma y zona horaria |
 
 Los puntos marcan la cadena: `k7.m3.p8` es alguien que recibió el enlace de quien recibió el de `k7`.
 Los reenvíos del mensaje original de WhatsApp conservan el código padre; esos se estiman en el análisis
@@ -69,3 +70,7 @@ Cada vez que quieras actualizar, exporta de nuevo y reemplaza la pestaña `Visit
   (p. ej. `og-cv-3.png`) y actualiza `og:image` y `og:image:secure_url` en `index.html`.
 - Si un despliegue de Pages falla con `startup_failure`, es un fallo de GitHub: vuelve a lanzarlo
   o sube un commit vacío.
+
+## Dashboard
+El dashboard privado "CV · Seguimiento de envíos" en Claude cruza la hoja de códigos (en vivo) con el export de GoatCounter.
+`procesar_export.py` convierte el zip del export en los dos JSON que usa: `python3 procesar_export.py export.zip salida/`.

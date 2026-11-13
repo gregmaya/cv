@@ -92,7 +92,7 @@
   .plain.cols{display:grid;grid-template-columns:1fr 1fr;column-gap:24px;row-gap:6px}
   .plain.cols b{display:block}
 
-  footer{margin-top:48px;color:var(--muted);font-size:.85rem;text-align:center}
+  footer{margin-top:48px;color:#a3a3a3;font-size:.68rem;line-height:1.5;text-align:center;max-width:46ch;margin-left:auto;margin-right:auto}
 
   /* Cabecera fija con capítulos */
   html{scroll-behavior:smooth}
@@ -310,8 +310,8 @@
   <button class="btn primary js-share" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>Compartir este CV</button>
 </div>
 <footer>
-  Esta página registra visitas de forma anónima y sin cookies (país, dispositivo, hora).
-  Los enlaces compartidos desde aquí llevan un código para saber cómo circula el CV.
+  Esta página registra visitas sin cookies ni datos personales: país, tipo de dispositivo,
+  idioma, zona horaria y hora. Los enlaces compartidos desde aquí llevan un código para saber cómo circula el CV.
 </footer>
 <div class="toast" id="toast">Enlace copiado</div>
 </div>
@@ -368,7 +368,23 @@
     var s = document.createElement('script');
     s.async = true; s.src = '//gc.zgo.at/count.js';
     s.setAttribute('data-goatcounter', GC);
-    s.onload = function(){ hit('cv' + tag, 'Visita CV' + (r ? ' · ' + r : '')); };
+    // Huella de la apertura: sistema, navegador, ancho de pantalla, idioma y zona horaria (sin cookies ni IP)
+    function huella(){
+      var ua = navigator.userAgent || '', so = 'otro', nav = 'otro';
+      if (/Android/i.test(ua)) so = 'android'; else if (/iPhone|iPad|iPod/i.test(ua)) so = 'ios';
+      else if (/Windows/i.test(ua)) so = 'windows'; else if (/Mac OS X|Macintosh/i.test(ua)) so = 'macos'; else if (/Linux/i.test(ua)) so = 'linux';
+      if (/Edg\//.test(ua)) nav = 'edge'; else if (/SamsungBrowser/.test(ua)) nav = 'samsung'; else if (/Firefox\//.test(ua)) nav = 'firefox';
+      else if (/Chrome\/|CriOS/.test(ua)) nav = 'chrome'; else if (/Safari\//.test(ua)) nav = 'safari';
+      var w = (window.screen && screen.width) || 0;
+      var lang = ((navigator.language || 'xx').slice(0, 2)).toLowerCase();
+      var tz = 'na';
+      try { tz = (Intl.DateTimeFormat().resolvedOptions().timeZone || 'na').split('/').pop().toLowerCase(); } catch (e) {}
+      return [so, nav, w, lang, tz].join('-').replace(/[^a-z0-9_-]/g, '');
+    }
+    s.onload = function(){
+      hit('cv' + tag, 'Visita CV' + (r ? ' · ' + r : ''));
+      hit('d/' + (r || 'sin-codigo') + '/' + huella(), 'Apertura · ' + (r || 'sin código'), true);
+    };
     document.head.appendChild(s);
 
     // Compartir: cada clic genera un código hijo (k7 → k7.m3) para seguir la cadena de reenvíos
