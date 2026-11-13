@@ -37,10 +37,13 @@
   .wrap{max-width:760px;margin:0 auto;padding:28px 20px 64px}
 
   header h1{font-size:clamp(1.6rem,8.6vw,2rem);line-height:1.1;letter-spacing:.01em;margin:0 0 6px;font-weight:800;text-transform:uppercase}
-  header .role{color:var(--muted);margin:0 0 18px;font-size:1.12rem}
+  header .role{color:var(--muted);margin:0 0 18px;font-size:clamp(.92rem,4.7vw,1.12rem)}
 
   .actions{display:flex;flex-direction:column;align-items:flex-start;gap:10px;margin:0 0 8px}
   .links{display:flex;gap:6px;width:100%}
+  .main-btns{display:flex;gap:8px}
+  .main-btns .btn{cursor:pointer;font-family:inherit;white-space:nowrap;padding:10px 16px;font-size:clamp(.82rem,4vw,1rem)}
+  .js-share svg{fill:none}
   .links .btn{flex:1;justify-content:center;padding:8px 2px;font-size:clamp(.66rem,3.4vw,.8rem);min-width:0;white-space:nowrap}
   @media (min-width:760px){.links{width:auto}.links .btn{flex:none;padding:8px 14px}}
   .btn{display:inline-flex;align-items:center;gap:6px;padding:10px 14px;border-radius:999px;
@@ -153,9 +156,12 @@
   <p class="role">Desarrollo Urbano<br>Ciencia de Datos Geoespaciales</p>
 
   <div class="actions">
+    <div class="main-btns">
     <a class="btn primary" id="pdf" href="Gregorio-Maya-CV.pdf" download="Gregorio-Maya-CV.pdf">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 21h16"/></svg>
       Descargar PDF</a>
+      <button class="btn js-share" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>Compartir</button>
+    </div>
     <div class="links">
     <a class="btn" data-track="email" href="mailto:gregoriomaya@gmail.com">Email</a>
     <a class="btn" data-track="whatsapp" href="https://wa.me/34613008183">WhatsApp</a>
@@ -169,7 +175,7 @@
 <div class="bar" id="bar">
   <div class="bar-in">
     <div class="bar-top"><a href="#top" class="bar-name">Gregorio Maya</a>
-      <span class="bar-act"><button class="bar-pdf js-share" type="button" aria-label="Compartir"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M12 3v13M7 8l5-5 5 5"/></svg><span class="lbl">Compartir</span></button>
+      <span class="bar-act"><button class="bar-pdf js-share" type="button" aria-label="Compartir"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg><span class="lbl">Compartir</span></button>
       <a class="bar-pdf" href="Gregorio-Maya-CV.pdf" download="Gregorio-Maya-CV.pdf" data-track="pdf">PDF ↓</a></span></div>
     <nav class="chips" id="chips">
       <a href="#perfil">Perfil</a><a href="#competencias">Competencias</a><a href="#experiencia">Experiencia</a><a href="#formacion">Formación</a><a href="#idiomas">Idiomas y certificaciones</a>
@@ -301,7 +307,7 @@
 </main>
 <div class="cta">
   <p>¿Conoces a alguien a quien le pueda interesar?</p>
-  <button class="btn primary js-share" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M12 3v13M7 8l5-5 5 5"/></svg>Compartir este CV</button>
+  <button class="btn primary js-share" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>Compartir este CV</button>
 </div>
 <footer>
   Esta página registra visitas de forma anónima y sin cookies (país, dispositivo, hora).
